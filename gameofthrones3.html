@@ -1,0 +1,128 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 750px;
+            background-color: #222222;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "white"}, "id": "Dat Tran", "label": "Dat Tran", "shape": "dot"}, {"font": {"color": "white"}, "id": "Zaheer Ali", "label": "Zaheer Ali", "shape": "dot"}, {"font": {"color": "white"}, "id": "Bryan McCreedy", "label": "Bryan McCreedy", "shape": "dot"}, {"font": {"color": "white"}, "id": "Tim Spann", "label": "Tim Spann", "shape": "dot"}, {"font": {"color": "white"}, "id": "Joe Reis", "label": "Joe Reis", "shape": "dot"}, {"font": {"color": "white"}, "id": "Chandra Sekhar", "label": "Chandra Sekhar", "shape": "dot"}, {"font": {"color": "white"}, "id": "Jana Cole", "label": "Jana Cole", "shape": "dot"}, {"font": {"color": "white"}, "id": "Ledonia Davis", "label": "Ledonia Davis", "shape": "dot"}, {"font": {"color": "white"}, "id": "Kwame Anku", "label": "Kwame Anku", "shape": "dot"}, {"font": {"color": "white"}, "id": "Huaqing Zhang", "label": "Huaqing Zhang", "shape": "dot"}, {"font": {"color": "white"}, "id": "Jeff Giorgi", "label": "Jeff Giorgi", "shape": "dot"}, {"font": {"color": "white"}, "id": "Valaretha Brown", "label": "Valaretha Brown", "shape": "dot"}, {"font": {"color": "white"}, "id": "Rafael Coss", "label": "Rafael Coss", "shape": "dot"}, {"font": {"color": "white"}, "id": "Dimari Epps", "label": "Dimari Epps", "shape": "dot"}, {"font": {"color": "white"}, "id": "Yolanda M. Davis", "label": "Yolanda M. Davis", "shape": "dot"}, {"font": {"color": "white"}, "id": "Cherae Robinson", "label": "Cherae Robinson", "shape": "dot"}, {"font": {"color": "white"}, "id": "Courtney McCluney", "label": "Courtney McCluney", "shape": "dot"}, {"font": {"color": "white"}, "id": "Steven I. Weiss", "label": "Steven I. Weiss", "shape": "dot"}, {"font": {"color": "white"}, "id": "Thomas Dobbs", "label": "Thomas Dobbs", "shape": "dot"}, {"font": {"color": "white"}, "id": "Charles Sekwalor", "label": "Charles Sekwalor", "shape": "dot"}, {"font": {"color": "white"}, "id": "Ibrahim Odumas Odufowora", "label": "Ibrahim Odumas Odufowora", "shape": "dot"}, {"font": {"color": "white"}, "id": "Yalda Zadeh", "label": "Yalda Zadeh", "shape": "dot"}, {"font": {"color": "white"}, "id": "Aditi Sharma", "label": "Aditi Sharma", "shape": "dot"}, {"font": {"color": "white"}, "id": "Peeya Iwagoshi", "label": "Peeya Iwagoshi", "shape": "dot"}, {"font": {"color": "white"}, "id": "Kushagra Vaid", "label": "Kushagra Vaid", "shape": "dot"}, {"font": {"color": "white"}, "id": "Ben Taylor", "label": "Ben Taylor", "shape": "dot"}, {"font": {"color": "white"}, "id": "Alexey Grigorev", "label": "Alexey Grigorev", "shape": "dot"}, {"font": {"color": "white"}, "id": "Cameo Doran", "label": "Cameo Doran", "shape": "dot"}, {"font": {"color": "white"}, "id": "Logan Suguitan", "label": "Logan Suguitan", "shape": "dot"}, {"font": {"color": "white"}, "id": "Anni Marso", "label": "Anni Marso", "shape": "dot"}, {"font": {"color": "white"}, "id": "Darell Austin Jr", "label": "Darell Austin Jr", "shape": "dot"}, {"font": {"color": "white"}, "id": "Alex Bouchard", "label": "Alex Bouchard", "shape": "dot"}, {"font": {"color": "white"}, "id": "Alessandro Palmas", "label": "Alessandro Palmas", "shape": "dot"}, {"font": {"color": "white"}, "id": "Michael A. Smith PhD", "label": "Michael A. Smith PhD", "shape": "dot"}, {"font": {"color": "white"}, "id": "Philip Vollet", "label": "Philip Vollet", "shape": "dot"}, {"font": {"color": "white"}, "id": "Eric Weber", "label": "Eric Weber", "shape": "dot"}, {"font": {"color": "white"}, "id": "Cynthia Lai", "label": "Cynthia Lai", "shape": "dot"}, {"font": {"color": "white"}, "id": "Stephanie Lampkin", "label": "Stephanie Lampkin", "shape": "dot"}, {"font": {"color": "white"}, "id": "Stan Sakharchuk - \ud835\udc05\ud835\udc25\ud835\udc1a\ud835\udc30\ud835\udc25\ud835\udc1e\ud835\udc2c\ud835\udc2c Mobile Apps", "label": "Stan Sakharchuk - \ud835\udc05\ud835\udc25\ud835\udc1a\ud835\udc30\ud835\udc25\ud835\udc1e\ud835\udc2c\ud835\udc2c Mobile Apps", "shape": "dot"}, {"font": {"color": "white"}, "id": "Patrick Tuttle", "label": "Patrick Tuttle", "shape": "dot"}, {"font": {"color": "white"}, "id": "Britton Winterrose", "label": "Britton Winterrose", "shape": "dot"}, {"font": {"color": "white"}, "id": "Rhomaro Tesfai-Powell", "label": "Rhomaro Tesfai-Powell", "shape": "dot"}, {"font": {"color": "white"}, "id": "Wade G. Morgan", "label": "Wade G. Morgan", "shape": "dot"}, {"font": {"color": "white"}, "id": "Alex Vilner", "label": "Alex Vilner", "shape": "dot"}, {"font": {"color": "white"}, "id": "Joe Sinzer", "label": "Joe Sinzer", "shape": "dot"}, {"font": {"color": "white"}, "id": "Chaun Lowe", "label": "Chaun Lowe", "shape": "dot"}, {"font": {"color": "white"}, "id": "Sunakshi Bhatia", "label": "Sunakshi Bhatia", "shape": "dot"}, {"font": {"color": "white"}, "id": "Uri Weiss", "label": "Uri Weiss", "shape": "dot"}, {"font": {"color": "white"}, "id": "Tosin Bosede", "label": "Tosin Bosede", "shape": "dot"}, {"font": {"color": "white"}, "id": "Joy Buolamwini", "label": "Joy Buolamwini", "shape": "dot"}, {"font": {"color": "white"}, "id": "Melissa Clift", "label": "Melissa Clift", "shape": "dot"}, {"font": {"color": "white"}, "id": "Victor Dibia PhD", "label": "Victor Dibia PhD", "shape": "dot"}, {"font": {"color": "white"}, "id": "Hamed ZITOUN", "label": "Hamed ZITOUN", "shape": "dot"}, {"font": {"color": "white"}, "id": "Graciela Carrillo", "label": "Graciela Carrillo", "shape": "dot"}, {"font": {"color": "white"}, "id": "Anand Govind", "label": "Anand Govind", "shape": "dot"}, {"font": {"color": "white"}, "id": "Olutosin Sonuyi", "label": "Olutosin Sonuyi", "shape": "dot"}, {"font": {"color": "white"}, "id": "CSM (Certified Scrum Master)", "label": "CSM (Certified Scrum Master)", "shape": "dot"}, {"font": {"color": "white"}, "id": "Yves T", "label": "Yves T", "shape": "dot"}, {"font": {"color": "white"}, "id": "Darren Reger PhD", "label": "Darren Reger PhD", "shape": "dot"}, {"font": {"color": "white"}, "id": "Frederick Lester", "label": "Frederick Lester", "shape": "dot"}, {"font": {"color": "white"}, "id": "Paul Li", "label": "Paul Li", "shape": "dot"}, {"font": {"color": "white"}, "id": "Jon Browning", "label": "Jon Browning", "shape": "dot"}, {"font": {"color": "white"}, "id": "Keita Broadwater", "label": "Keita Broadwater", "shape": "dot"}]);
+        edges = new vis.DataSet([{"from": "Keita Broadwater", "to": "Dat Tran"}, {"from": "Keita Broadwater", "to": "Zaheer Ali"}, {"from": "Keita Broadwater", "to": "Bryan McCreedy"}, {"from": "Keita Broadwater", "to": "Tim Spann"}, {"from": "Keita Broadwater", "to": "Joe Reis"}, {"from": "Keita Broadwater", "to": "Chandra Sekhar"}, {"from": "Keita Broadwater", "to": "Jana Cole"}, {"from": "Keita Broadwater", "to": "Ledonia Davis"}, {"from": "Keita Broadwater", "to": "Kwame Anku"}, {"from": "Keita Broadwater", "to": "Huaqing Zhang"}, {"from": "Keita Broadwater", "to": "Jeff Giorgi"}, {"from": "Keita Broadwater", "to": "Valaretha Brown"}, {"from": "Keita Broadwater", "to": "Rafael Coss"}, {"from": "Keita Broadwater", "to": "Dimari Epps"}, {"from": "Keita Broadwater", "to": "Yolanda M. Davis"}, {"from": "Keita Broadwater", "to": "Cherae Robinson"}, {"from": "Keita Broadwater", "to": "Courtney McCluney"}, {"from": "Keita Broadwater", "to": "Steven I. Weiss"}, {"from": "Keita Broadwater", "to": "Thomas Dobbs"}, {"from": "Keita Broadwater", "to": "Charles Sekwalor"}, {"from": "Keita Broadwater", "to": "Ibrahim Odumas Odufowora"}, {"from": "Keita Broadwater", "to": "Yalda Zadeh"}, {"from": "Keita Broadwater", "to": "Aditi Sharma"}, {"from": "Keita Broadwater", "to": "Peeya Iwagoshi"}, {"from": "Keita Broadwater", "to": "Kushagra Vaid"}, {"from": "Keita Broadwater", "to": "Ben Taylor"}, {"from": "Keita Broadwater", "to": "Alexey Grigorev"}, {"from": "Keita Broadwater", "to": "Cameo Doran"}, {"from": "Keita Broadwater", "to": "Logan Suguitan"}, {"from": "Keita Broadwater", "to": "Anni Marso"}, {"from": "Keita Broadwater", "to": "Darell Austin Jr"}, {"from": "Keita Broadwater", "to": "Alex Bouchard"}, {"from": "Keita Broadwater", "to": "Alessandro Palmas"}, {"from": "Keita Broadwater", "to": "Michael A. Smith PhD"}, {"from": "Keita Broadwater", "to": "Philip Vollet"}, {"from": "Keita Broadwater", "to": "Eric Weber"}, {"from": "Keita Broadwater", "to": "Cynthia Lai"}, {"from": "Keita Broadwater", "to": "Stephanie Lampkin"}, {"from": "Keita Broadwater", "to": "Stan Sakharchuk - \ud835\udc05\ud835\udc25\ud835\udc1a\ud835\udc30\ud835\udc25\ud835\udc1e\ud835\udc2c\ud835\udc2c Mobile Apps"}, {"from": "Keita Broadwater", "to": "Patrick Tuttle"}, {"from": "Keita Broadwater", "to": "Britton Winterrose"}, {"from": "Keita Broadwater", "to": "Rhomaro Tesfai-Powell"}, {"from": "Keita Broadwater", "to": "Wade G. Morgan"}, {"from": "Keita Broadwater", "to": "Alex Vilner"}, {"from": "Keita Broadwater", "to": "Joe Sinzer"}, {"from": "Keita Broadwater", "to": "Chaun Lowe"}, {"from": "Keita Broadwater", "to": "Sunakshi Bhatia"}, {"from": "Keita Broadwater", "to": "Uri Weiss"}, {"from": "Keita Broadwater", "to": "Tosin Bosede"}, {"from": "Keita Broadwater", "to": "Joy Buolamwini"}, {"from": "Keita Broadwater", "to": "Melissa Clift"}, {"from": "Keita Broadwater", "to": "Victor Dibia PhD"}, {"from": "Keita Broadwater", "to": "Hamed ZITOUN"}, {"from": "Keita Broadwater", "to": "Graciela Carrillo"}, {"from": "Keita Broadwater", "to": "Anand Govind"}, {"from": "Keita Broadwater", "to": "Olutosin Sonuyi"}, {"from": "Keita Broadwater", "to": "CSM (Certified Scrum Master)"}, {"from": "Keita Broadwater", "to": "Yves T"}, {"from": "Keita Broadwater", "to": "Darren Reger PhD"}, {"from": "Keita Broadwater", "to": "Frederick Lester"}, {"from": "Keita Broadwater", "to": "Paul Li"}, {"from": "Keita Broadwater", "to": "Jon Browning"}, {"from": "Anand Govind", "to": "Kushagra Vaid"}, {"from": "Alessandro Palmas", "to": "Ben Taylor"}, {"from": "Alessandro Palmas", "to": "Michael A. Smith PhD"}, {"from": "Alessandro Palmas", "to": "Dat Tran"}, {"from": "Alessandro Palmas", "to": "Britton Winterrose"}, {"from": "Alessandro Palmas", "to": "Alexey Grigorev"}, {"from": "Alessandro Palmas", "to": "Hamed ZITOUN"}, {"from": "Alessandro Palmas", "to": "Philip Vollet"}, {"from": "Tosin Bosede", "to": "Rhomaro Tesfai-Powell"}, {"from": "Tosin Bosede", "to": "Cherae Robinson"}, {"from": "Tosin Bosede", "to": "Stephanie Lampkin"}, {"from": "Tosin Bosede", "to": "Joy Buolamwini"}, {"from": "Tosin Bosede", "to": "Yves T"}, {"from": "Tosin Bosede", "to": "Chaun Lowe"}, {"from": "Tosin Bosede", "to": "Olutosin Sonuyi"}, {"from": "Tosin Bosede", "to": "Wade G. Morgan"}, {"from": "Tosin Bosede", "to": "Charles Sekwalor"}, {"from": "Dimari Epps", "to": "Bryan McCreedy"}, {"from": "Dimari Epps", "to": "Frederick Lester"}, {"from": "Dimari Epps", "to": "Paul Li"}, {"from": "Dimari Epps", "to": "Jana Cole"}, {"from": "Dimari Epps", "to": "Anni Marso"}, {"from": "Dimari Epps", "to": "Darell Austin Jr"}, {"from": "Dimari Epps", "to": "Alex Bouchard"}, {"from": "Aditi Sharma", "to": "Huaqing Zhang"}, {"from": "Aditi Sharma", "to": "Eric Weber"}, {"from": "Aditi Sharma", "to": "Thomas Dobbs"}, {"from": "Aditi Sharma", "to": "Chandra Sekhar"}, {"from": "Aditi Sharma", "to": "Darren Reger PhD"}, {"from": "Aditi Sharma", "to": "Cynthia Lai"}, {"from": "Aditi Sharma", "to": "Peeya Iwagoshi"}, {"from": "Aditi Sharma", "to": "Paul Li"}, {"from": "Aditi Sharma", "to": "Joe Reis"}, {"from": "Aditi Sharma", "to": "Uri Weiss"}, {"from": "Aditi Sharma", "to": "Anni Marso"}, {"from": "Aditi Sharma", "to": "Sunakshi Bhatia"}, {"from": "Aditi Sharma", "to": "Logan Suguitan"}, {"from": "Aditi Sharma", "to": "Ibrahim Odumas Odufowora"}, {"from": "Aditi Sharma", "to": "Melissa Clift"}, {"from": "Cameo Doran", "to": "Ben Taylor"}, {"from": "Cameo Doran", "to": "Zaheer Ali"}, {"from": "Cameo Doran", "to": "Alex Vilner"}, {"from": "Cameo Doran", "to": "Jon Browning"}, {"from": "Cameo Doran", "to": "Ledonia Davis"}, {"from": "Cameo Doran", "to": "CSM (Certified Scrum Master)"}, {"from": "Cameo Doran", "to": "Stan Sakharchuk - \ud835\udc05\ud835\udc25\ud835\udc1a\ud835\udc30\ud835\udc25\ud835\udc1e\ud835\udc2c\ud835\udc2c Mobile Apps"}, {"from": "Cameo Doran", "to": "Yalda Zadeh"}, {"from": "Cameo Doran", "to": "Jeff Giorgi"}, {"from": "Yolanda M. Davis", "to": "Kwame Anku"}, {"from": "Yolanda M. Davis", "to": "Victor Dibia PhD"}, {"from": "Yolanda M. Davis", "to": "Joy Buolamwini"}, {"from": "Yolanda M. Davis", "to": "Rafael Coss"}, {"from": "Yolanda M. Davis", "to": "Valaretha Brown"}, {"from": "Yolanda M. Davis", "to": "Tim Spann"}, {"from": "Yolanda M. Davis", "to": "Patrick Tuttle"}, {"from": "Yolanda M. Davis", "to": "Joe Sinzer"}, {"from": "Graciela Carrillo", "to": "Steven I. Weiss"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

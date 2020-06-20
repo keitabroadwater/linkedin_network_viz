@@ -1,0 +1,113 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 750px;
+            background-color: #222222;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "white"}, "id": "Dat Tran", "label": "Dat Tran", "shape": "dot"}, {"font": {"color": "white"}, "id": "Zaheer Ali", "label": "Zaheer Ali", "shape": "dot"}, {"font": {"color": "white"}, "id": "Bryan McCreedy", "label": "Bryan McCreedy", "shape": "dot"}, {"font": {"color": "white"}, "id": "Tim Spann", "label": "Tim Spann", "shape": "dot"}, {"font": {"color": "white"}, "id": "Joe Reis", "label": "Joe Reis", "shape": "dot"}, {"font": {"color": "white"}, "id": "Chandra Sekhar", "label": "Chandra Sekhar", "shape": "dot"}, {"font": {"color": "white"}, "id": "Jana Cole", "label": "Jana Cole", "shape": "dot"}, {"font": {"color": "white"}, "id": "Ledonia Davis", "label": "Ledonia Davis", "shape": "dot"}, {"font": {"color": "white"}, "id": "Kwame Anku", "label": "Kwame Anku", "shape": "dot"}, {"font": {"color": "white"}, "id": "Huaqing Zhang", "label": "Huaqing Zhang", "shape": "dot"}, {"font": {"color": "white"}, "id": "Jeff Giorgi", "label": "Jeff Giorgi", "shape": "dot"}, {"font": {"color": "white"}, "id": "Valaretha Brown", "label": "Valaretha Brown", "shape": "dot"}, {"font": {"color": "white"}, "id": "Rafael Coss", "label": "Rafael Coss", "shape": "dot"}, {"font": {"color": "white"}, "id": "Dimari Epps", "label": "Dimari Epps", "shape": "dot"}, {"font": {"color": "white"}, "id": "Yolanda M. Davis", "label": "Yolanda M. Davis", "shape": "dot"}, {"font": {"color": "white"}, "id": "Cherae Robinson", "label": "Cherae Robinson", "shape": "dot"}, {"font": {"color": "white"}, "id": "Courtney McCluney", "label": "Courtney McCluney", "shape": "dot"}, {"font": {"color": "white"}, "id": "Steven I. Weiss", "label": "Steven I. Weiss", "shape": "dot"}, {"font": {"color": "white"}, "id": "Thomas Dobbs", "label": "Thomas Dobbs", "shape": "dot"}, {"font": {"color": "white"}, "id": "Charles Sekwalor", "label": "Charles Sekwalor", "shape": "dot"}, {"font": {"color": "white"}, "id": "Ibrahim Odumas Odufowora", "label": "Ibrahim Odumas Odufowora", "shape": "dot"}, {"font": {"color": "white"}, "id": "Yalda Zadeh", "label": "Yalda Zadeh", "shape": "dot"}, {"font": {"color": "white"}, "id": "Aditi Sharma", "label": "Aditi Sharma", "shape": "dot"}, {"font": {"color": "white"}, "id": "Peeya Iwagoshi", "label": "Peeya Iwagoshi", "shape": "dot"}, {"font": {"color": "white"}, "id": "Kushagra Vaid", "label": "Kushagra Vaid", "shape": "dot"}, {"font": {"color": "white"}, "id": "Ben Taylor", "label": "Ben Taylor", "shape": "dot"}, {"font": {"color": "white"}, "id": "Alexey Grigorev", "label": "Alexey Grigorev", "shape": "dot"}, {"font": {"color": "white"}, "id": "Cameo Doran", "label": "Cameo Doran", "shape": "dot"}, {"font": {"color": "white"}, "id": "Logan Suguitan", "label": "Logan Suguitan", "shape": "dot"}, {"font": {"color": "white"}, "id": "Anni Marso", "label": "Anni Marso", "shape": "dot"}, {"font": {"color": "white"}, "id": "Darell Austin Jr", "label": "Darell Austin Jr", "shape": "dot"}, {"font": {"color": "white"}, "id": "Alex Bouchard", "label": "Alex Bouchard", "shape": "dot"}, {"font": {"color": "white"}, "id": "Alessandro Palmas", "label": "Alessandro Palmas", "shape": "dot"}, {"font": {"color": "white"}, "id": "Michael A. Smith PhD", "label": "Michael A. Smith PhD", "shape": "dot"}, {"font": {"color": "white"}, "id": "Philip Vollet", "label": "Philip Vollet", "shape": "dot"}, {"font": {"color": "white"}, "id": "Eric Weber", "label": "Eric Weber", "shape": "dot"}, {"font": {"color": "white"}, "id": "Cynthia Lai", "label": "Cynthia Lai", "shape": "dot"}, {"font": {"color": "white"}, "id": "Stephanie Lampkin", "label": "Stephanie Lampkin", "shape": "dot"}, {"font": {"color": "white"}, "id": "Stan Sakharchuk - \ud835\udc05\ud835\udc25\ud835\udc1a\ud835\udc30\ud835\udc25\ud835\udc1e\ud835\udc2c\ud835\udc2c Mobile Apps", "label": "Stan Sakharchuk - \ud835\udc05\ud835\udc25\ud835\udc1a\ud835\udc30\ud835\udc25\ud835\udc1e\ud835\udc2c\ud835\udc2c Mobile Apps", "shape": "dot"}, {"font": {"color": "white"}, "id": "Patrick Tuttle", "label": "Patrick Tuttle", "shape": "dot"}, {"font": {"color": "white"}, "id": "Britton Winterrose", "label": "Britton Winterrose", "shape": "dot"}, {"font": {"color": "white"}, "id": "Rhomaro Tesfai-Powell", "label": "Rhomaro Tesfai-Powell", "shape": "dot"}, {"font": {"color": "white"}, "id": "Wade G. Morgan", "label": "Wade G. Morgan", "shape": "dot"}, {"font": {"color": "white"}, "id": "Alex Vilner", "label": "Alex Vilner", "shape": "dot"}, {"font": {"color": "white"}, "id": "Joe Sinzer", "label": "Joe Sinzer", "shape": "dot"}, {"font": {"color": "white"}, "id": "Chaun Lowe", "label": "Chaun Lowe", "shape": "dot"}, {"font": {"color": "white"}, "id": "Sunakshi Bhatia", "label": "Sunakshi Bhatia", "shape": "dot"}, {"font": {"color": "white"}, "id": "Uri Weiss", "label": "Uri Weiss", "shape": "dot"}, {"font": {"color": "white"}, "id": "Tosin Bosede", "label": "Tosin Bosede", "shape": "dot"}, {"font": {"color": "white"}, "id": "Joy Buolamwini", "label": "Joy Buolamwini", "shape": "dot"}, {"font": {"color": "white"}, "id": "Melissa Clift", "label": "Melissa Clift", "shape": "dot"}, {"font": {"color": "white"}, "id": "Victor Dibia PhD", "label": "Victor Dibia PhD", "shape": "dot"}, {"font": {"color": "white"}, "id": "Hamed ZITOUN", "label": "Hamed ZITOUN", "shape": "dot"}, {"font": {"color": "white"}, "id": "Graciela Carrillo", "label": "Graciela Carrillo", "shape": "dot"}, {"font": {"color": "white"}, "id": "Anand Govind", "label": "Anand Govind", "shape": "dot"}, {"font": {"color": "white"}, "id": "Olutosin Sonuyi", "label": "Olutosin Sonuyi", "shape": "dot"}, {"font": {"color": "white"}, "id": "CSM (Certified Scrum Master)", "label": "CSM (Certified Scrum Master)", "shape": "dot"}, {"font": {"color": "white"}, "id": "Yves T", "label": "Yves T", "shape": "dot"}, {"font": {"color": "white"}, "id": "Darren Reger PhD", "label": "Darren Reger PhD", "shape": "dot"}, {"font": {"color": "white"}, "id": "Frederick Lester", "label": "Frederick Lester", "shape": "dot"}, {"font": {"color": "white"}, "id": "Paul Li", "label": "Paul Li", "shape": "dot"}, {"font": {"color": "white"}, "id": "Jon Browning", "label": "Jon Browning", "shape": "dot"}]);
+        edges = new vis.DataSet([]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
